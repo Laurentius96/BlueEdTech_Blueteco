@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,3 +6,22 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// 2°) Criando a model (tabela) do usuário...
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  funcao    String
+  nacimento String
+  senha     String
+  imagemUrl String
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  @@map("user")
+}
+
+// OBS.01: após criarmos a model (2°) devemos sincronicarcom o Banco de dados: 1-npx prisma format; 2- npx prisma migrate dev --name 'nome';
+// OBS.02: Seguimos usando o comando: npm install @prisma/client
+// OBS.03: Após feito os itens anteriores, seguimos criando o arquivo: prisma.service.ts na pasta SRC...
