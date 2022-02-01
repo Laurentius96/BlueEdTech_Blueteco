@@ -6,6 +6,12 @@ import { PrismaService } from 'src/prisma.service';
 // 10°) Use: 'npm i bcrypt' e o 'npm i -D @types/bcrypt' para pacotes de criptografia e fazer a importação...
 import * as bcrypt from 'bcrypt';
 
+// 21°) Importando o User...
+import { User } from '@prisma/client';
+
+// 27°) Importando o UserDto...
+import { UserDto } from './dto/user.dto';
+
 @Injectable()
 export class UserService {
   // 8°) Criando um construtor com o PrismaService...
@@ -54,11 +60,15 @@ export class UserService {
         funcao: true,
         nacimento: true,
         imagemUrl: true,
-
-      }
-    })
+        createAt: true,
+        updateAt: true,
+      },
+    });
+    return users;
   }
-
 }
 
-// OBS.01: Após o item 12°, vamos para o aquivo user.controller.ts;
+// OBS.01: Após o item 12°, vamos para o aquivo: user.controller.ts;
+// OBS.02: Após o item 19°, vamos para o aquivo: user.controller.ts;
+// OBS.03: Após o item 21°, vamos para o aquivo: user.controller.ts;
+
