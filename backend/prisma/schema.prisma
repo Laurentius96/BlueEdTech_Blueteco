@@ -19,9 +19,44 @@ model User {
   createAt  DateTime @default(now())
   updateAt  DateTime @updatedAt
 
+  // 84°) Relacionamento um para muitos e o usar o comando: npx prisma format...
+  mesa Mesa[]
+
   @@map("user")
+}
+
+// 83°) Criando as model demias models que vão ser usadas na parte menu e mesa do resturante...
+model Menu {
+  id        String   @id @default(uuid())
+  item      String
+  preco     Decimal
+  descricao String
+  imagemUrl String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Mesa   Mesa?   @relation(fields: [mesaId], references: [id])
+  mesaId String?
+
+  @@map("menu")
+}
+
+model Mesa {
+  id        String   @id @default(uuid())
+  numeracao String
+  nPessoas  Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  menu Menu[]
+
+  @@map("mesa")
 }
 
 // OBS.01: após criarmos a model (2°) devemos sincronicarcom o Banco de dados: 1-npx prisma format; 2- npx prisma migrate dev --name 'nome';
 // OBS.02: Seguimos usando o comando: npm install @prisma/client
 // OBS.03: Após feito os itens anteriores, seguimos criando o arquivo: prisma.service.ts na pasta SRC...
+// OBS.04: Após o item 84°, segumimos para o arquivo: mesa.module.ts

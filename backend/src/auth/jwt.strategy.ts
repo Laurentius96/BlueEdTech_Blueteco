@@ -31,3 +31,5 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return valitedUser;
   }
 }
+
+// OBS.01: Após o item 40°, seguimos para o arquivo: auth.service.ts
