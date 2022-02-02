@@ -53,7 +53,7 @@ export class UserController {
     return this.userService.update(userId, updateUserDto);
   }
 
-  // 36°) Criando a rota delete @Delete...
+  // 37°) Criando a rota delete @Delete...
   @Delete(':id')
   delete(@Param('id') userId: string) {
     return this.userService.delete(userId);
@@ -66,3 +66,4 @@ export class UserController {
 // OBS.04: Após o item 26°, seguimos para o arquivo: user.service.ts;
 // OBS.05: Após o item 29°, seguimos para o arquivo: user.service.ts;
 // OBS.06: Após o item 35°, seguimos para o arquivo: user.service.ts;
+// OBS.07: Após o item 37°, seguimos criando a pasta auth na src e lá criamos os arquivos, controller, module, service e criamos algumns arquivos (jwt.constants.ts & jwt.strategy.ts) e vamos para o arquivo criado jwt.constants.ts
