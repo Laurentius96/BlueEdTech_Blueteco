@@ -1,4 +1,8 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 // 7°) Importando o CreateUserDto e o PrismaService...
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -66,9 +70,23 @@ export class UserService {
     });
     return users;
   }
+
+  // 28°) Método findUnique...
+  async findUnique(userId: string): Promise<User> {
+    const userFinded = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!userFinded) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+    delete userFinded.senha;
+    return userFinded;
+  }
 }
 
 // OBS.01: Após o item 12°, vamos para o aquivo: user.controller.ts;
 // OBS.02: Após o item 19°, vamos para o aquivo: user.controller.ts;
 // OBS.03: Após o item 21°, vamos para o aquivo: user.controller.ts;
-
+// OBS.04: Após o item 28°, vamos para o aquivo: user.controller.ts;

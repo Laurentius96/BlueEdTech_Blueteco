@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 // 13°) Importando o CreateUserDto...
 import { CreateUserDto } from './dto/create-user.dto';
@@ -23,8 +23,14 @@ export class UserController {
   // 20°) Criando a rota do findMany com @Get
   @Get()
   // 26°) Add o {UserDto}...
-  findMany(): Promise<UserDto[]>{
+  findMany(): Promise<UserDto[]> {
     return this.userService.findMany();
+  }
+
+  // 29°) Criando a rota do findUnique com @Get
+  @Get(':id')
+  findUnique(@Param('id') userId: string): Promise<User> {
+    return this.userService.findUnique(userId);
   }
 }
 
@@ -32,3 +38,4 @@ export class UserController {
 // OBS.02: Após o item 19°, seguimos para o arquivo: user.service.ts
 // OBS.03: Após o item 23°, seguimos para o arquivo: user.dto.ts
 // OBS.04: Após o item 26°, seguimos para o arquivo: user.service.ts
+// OBS.05: Após o item 29°, seguimos para o arquivo: user.service.ts
