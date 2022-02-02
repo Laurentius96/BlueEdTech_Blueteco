@@ -16,6 +16,9 @@ import { User } from '@prisma/client';
 // 27°) Importando o UserDto...
 import { UserDto } from './dto/user.dto';
 
+// 33°) Importando o UpdateUserDto
+import { UpdateUserDto } from './dto/update-user.dto';
+
 @Injectable()
 export class UserService {
   // 8°) Criando um construtor com o PrismaService...
@@ -84,9 +87,77 @@ export class UserService {
     delete userFinded.senha;
     return userFinded;
   }
+
+  // 30°) Método update...
+  async update(userId: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const userFinded = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!userFinded) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    // Vamos para o arquivo: update-user.dto.this
+
+    // 32°) Verificando se o email criado já existe no banco de dados...
+    if (updateUserDto.email) {
+      const emailExists = await this.prismaService.user.findUnique({
+        where: {
+          email: updateUserDto.email,
+        },
+      });
+
+      if (emailExists) {
+        throw new ConflictException('Email já cadastrado');
+      }
+    }
+
+    const updatedUser = await this.prismaService.user.update({
+      where: { id: userId },
+      data: {
+        email: updateUserDto.email,
+        name: updateUserDto.name,
+        funcao: updateUserDto.funcao,
+        nacimento: updateUserDto.nacimento,
+        imagemUrl: updateUserDto.imagemUrl,
+      },
+    });
+
+    delete updatedUser.senha;
+
+    return updatedUser;
+  }
+
+  // 36°) Método delete...
+  async delete(userId: string) {
+    const userFinded = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!userFinded) {
+      throw new NotFoundException('Usuário não encontrador');
+    }
+
+    const deletedUser = await this.prismaService.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    delete deletedUser.senha;
+
+    return deletedUser;
+  }
 }
 
 // OBS.01: Após o item 12°, vamos para o aquivo: user.controller.ts;
 // OBS.02: Após o item 19°, vamos para o aquivo: user.controller.ts;
 // OBS.03: Após o item 21°, vamos para o aquivo: user.controller.ts;
 // OBS.04: Após o item 28°, vamos para o aquivo: user.controller.ts;
+// OBS.05: Após o item 33°, vamos para o aquivo: user.controller.ts;
+// OBS.06: Após o item 36°, vamos para o aquivo: user.controller.ts;
