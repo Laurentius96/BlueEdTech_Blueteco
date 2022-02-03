@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-// 91°) Importando o Propertie, CreateMesaDto e o PrismaService...
+// 91°) Importando o Mesa, CreateMesaDto e o PrismaService...
 import { PrismaService } from 'src/prisma.service';
 import { CreateMesaDto } from './dto/create-mesa.dto';
 import { Mesa } from '@prisma/client';
