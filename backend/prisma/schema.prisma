@@ -43,7 +43,7 @@ model Menu {
 
 model Mesa {
   id        String   @id @default(uuid())
-  numeracao String
+  numeracao Float
   nPessoas  Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

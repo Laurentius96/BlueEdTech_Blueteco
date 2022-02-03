@@ -5,7 +5,7 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateMesaDto {
   @IsNotEmpty()
   @IsNumber()
-  numeraçao: number;
+  numeracao: number;
 
   @IsNotEmpty()
   @IsNumber()
