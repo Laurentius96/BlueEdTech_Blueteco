@@ -28,7 +28,7 @@ export class MesaService {
             id: userId,
           },
         },
-        itens: []
+        
       },
     });
     return createdMesa;

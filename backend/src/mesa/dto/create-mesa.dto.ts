@@ -1,5 +1,5 @@
 // 90°) Fazemos as importações...
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 // 124°) Importando o ApiProperty ...
 import { ApiProperty } from '@nestjs/swagger';
@@ -16,6 +16,10 @@ export class CreateMesaDto {
   @IsNumber()
   @ApiProperty()
   nPessoas: number;
+
+  @IsNotEmpty()
+  IsString
+  pedidos: string[]; 
 }
 
 // OBS.01: Após o item 90°, seguimos para o arquivo: mesa.service.ts; 
