@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 // 91°) Importando o Mesa, CreateMesaDto e o PrismaService...
 import { PrismaService } from 'src/prisma.service';
 import { CreateMesaDto } from './dto/create-mesa.dto';
@@ -11,6 +11,14 @@ export class MesaService {
 
   // 93°) Método Create...
   async create(createMesaDto: CreateMesaDto, userId: string): Promise<Mesa> {
+    const numeracaoExists = this.prismaService.mesa.findUnique({
+      where: { numeracao: createMesaDto.numeracao },
+    });
+
+    if (numeracaoExists) {
+      throw new ConflictException('Mesa já está sendo usada');
+    }
+
     const createdMesa = await this.prismaService.mesa.create({
       data: {
         numeracao: createMesaDto.numeracao,
@@ -20,6 +28,7 @@ export class MesaService {
             id: userId,
           },
         },
+        itens: []
       },
     });
     return createdMesa;

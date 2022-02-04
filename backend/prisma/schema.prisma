@@ -35,18 +35,22 @@ model Menu {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  mesa Mesa[]
+
   @@map("menu")
 }
 
 model Mesa {
   id        String   @id @default(uuid())
-  numeracao Float
+  numeracao Float    @unique
   nPessoas  Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   User   User?   @relation(fields: [userId], references: [id])
   userId String?
+
+  itens Menu[]
 
   @@map("mesa")
 }

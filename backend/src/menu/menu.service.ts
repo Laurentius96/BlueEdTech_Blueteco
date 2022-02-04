@@ -102,6 +102,19 @@ export class MenuService {
     });
     return updatedMenu;
   }
+
+  // 150°) findUnique...
+  async findUnique(menuId: string): Promise<Menu> {
+    const itemFinded = await this.prismaService.menu.findUnique({
+      where: { id: menuId },
+    });
+
+    if (!itemFinded) {
+      throw new NotFoundException('Item não encontrado');
+    }
+    return itemFinded;
+  }
 }
 
 // OBS.01: Após o item 143°, seguimos para o arquivo: update-menu.dto.ts
+// OBS.01: Após o item 150°, seguimos para o arquivo: menu-controller.ts

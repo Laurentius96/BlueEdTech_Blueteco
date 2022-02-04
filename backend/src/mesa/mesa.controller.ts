@@ -41,6 +41,9 @@ export class MesaController {
   findMany(): Promise<Mesa[]> {
     return this.mesaService.findMany();
   }
+
+  
+
 }
 
 // OBS.01: Após o item 95° seguimos para o arquivo: mesa.service.ts
