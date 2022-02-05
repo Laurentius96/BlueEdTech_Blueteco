@@ -27,8 +27,7 @@ export class MesaService {
           connect: {
             id: userId,
           },
-        },
-        
+        },        
       },
     });
     return createdMesa;
